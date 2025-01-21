@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Admin Seat Details</h2>
+
+<mat-dialog-content>
+  <ng-container *ngIf="!isDataEmpty; else noData">
+    <p><strong>Bus Name:</strong> {{ bookingDetails.busName }}</p>
+    <p><strong>Seat Number:</strong> {{ bookingDetails.seatId }}</p>
+    <p><strong>User Name:</strong> {{ bookingDetails.userDetails.name }}</p>
+    <p><strong>Destination:</strong> {{ bookingDetails.userDetails.destination }}</p>
+    <p><strong>Time:</strong> {{ bookingDetails.userDetails.time }}</p>
+    <p><strong>Booking Time:</strong> {{ bookingDetails.bookingTime | date: 'short' }}</p>
+  </ng-container>
+
+  <ng-template #noData>
+    <p class="text-red-500">No booking data found for this seat.</p>
+  </ng-template>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

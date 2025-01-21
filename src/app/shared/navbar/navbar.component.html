@@ -1,0 +1,81 @@
+<div>
+  <mat-toolbar color="primary" class="md:flex md:justify-between w-full">
+
+    <button mat-icon-button (click)="sidenav.toggle()" id="menuIcon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span id="menuTitle" class="uppercase">Selise Bus</span>
+    <div>
+      <ul class="flex justify-center items-center gap-4 text-lg">
+        <li mat-button routerLink="/" class="top-menu-item flex justify-center items-center gap-2 cursor-pointer"
+          routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-icon>home</mat-icon>Home
+        </li>
+        <!-- <li mat-button routerLink="/contacts"
+          class="top-menu-item flex justify-center items-center gap-2 cursor-pointer" routerLinkActive="active">
+          <mat-icon>people</mat-icon>Contacts
+        </li> -->
+      </ul>
+
+    </div>
+    <div class="top-menu-item ">
+      <button *ngIf="!isUserLoggedIn" mat-raised-button color="warn" routerLink="/login">Login</button>
+      <button *ngIf="isUserLoggedIn" color="warn" mat-mini-fab [matMenuTriggerFor]="menu"
+        aria-label="Example icon button with a home icon">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="px-2">
+        <button mat-menu-item>{{userData?.email}}</button>
+        <button mat-button color="warn" class="w-full">{{userData?.role}}</button>
+        <button color="warn" mat-raised-button class="w-full" (click)="logout()">Logout</button>
+      </mat-menu>
+    </div>
+
+
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="60" mode="side">
+      <div class="side-nav-items">
+        <div>
+          <a (click)="sidenav.close()" mat-button routerLink="/" class="side-menu-item" routerLinkActive="active">
+            <mat-icon>home</mat-icon>Home
+          </a>
+        </div>
+
+        <!-- <div>
+          <a (click)="sidenav.close()" mat-button routerLink="/contacts" class="side-menu-item"
+            routerLinkActive="active">
+            <mat-icon>people</mat-icon>Contacts
+          </a>
+        </div> -->
+        <div>
+          <a (click)="sidenav.close()" *ngIf="!isUserLoggedIn" mat-button routerLink="/login" class="side-menu-item"
+            routerLinkActive="active" (click)="logout()">
+            <mat-icon>login</mat-icon>Login
+          </a>
+          <a (click)="sidenav.close()" *ngIf="isUserLoggedIn" mat-button routerLink="/login" class="side-menu-item"
+            routerLinkActive="active" (click)="logout()">
+            <mat-icon>login</mat-icon>logout
+          </a>
+
+
+        </div>
+
+        <!-- <div>
+                <a (click)="sidenav.close()" mat-button routerLink="/newcontact"
+                    class="side-menu-item"  routerLinkActive="active"><mat-icon>person_add</mat-icon>New
+                    Contact</a>
+            </div> -->
+      </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

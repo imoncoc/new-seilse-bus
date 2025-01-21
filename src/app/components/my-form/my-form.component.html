@@ -1,0 +1,82 @@
+<!-- <h1 mat-dialog-title>Seat Bookings Form</h1>
+<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div> -->
+
+
+<h1 mat-dialog-title>Seat Bookings Form</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="flex flex-col">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="bookingForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Bus No</mat-label>
+      <mat-select formControlName="busNo" required>
+        <mat-option *ngFor="let bus of buses" [value]="bus.busNo">
+          {{ bus.name }} - {{ bus.busNo }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="bookingForm.get('busNo')?.hasError('required')">
+        Bus No is required
+      </mat-error>
+    </mat-form-field> -->
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Bus Name</mat-label>
+        <input matInput formControlName="busName" required>
+        <!-- <mat-error *ngIf="bookingForm.get('busName')?.hasError('required')">
+          Name is required
+        </mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Seat No</mat-label>
+        <input matInput formControlName="seatNo" required>
+        <!-- <mat-error *ngIf="bookingForm.get('seatNo')?.hasError('required')">
+          Seat No is required
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Destination</mat-label>
+      <mat-select formControlName="destination" required>
+        <mat-option *ngFor="let dest of destinations" [value]="dest">
+          {{ dest }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="bookingForm.get('destination')?.hasError('required')">
+        Destination is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Time</mat-label>
+      <mat-select formControlName="time" required>
+        <mat-option *ngFor="let time of times" [value]="time">
+          {{ time }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="bookingForm.get('time')?.hasError('required')">
+        Time is required
+      </mat-error>
+    </mat-form-field>
+
+
+    <div mat-dialog-actions class="flex flex-row justify-end">
+      <button mat-button mat-dialog-close>Close</button>
+      <button mat-button color="primary" type="submit" [disabled]="!bookingForm.valid">Book Seat</button>
+
+    </div>
+  </form>
+</div>

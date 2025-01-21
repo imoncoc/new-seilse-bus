@@ -1,0 +1,97 @@
+<!-- <div *ngIf="!bus; else busDetails">
+  <p class="text-center text-red-500">Bus not found.</p>
+</div>
+
+<ng-template #busDetails>
+  <div class="flex justify-center items-center">
+    <div class="w-96 bg-slate-100 p-4 rounded">
+
+      <div class="grid grid-cols-4">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p class="py-8 px-6 bg-blue-300 rounded-full text-center">Driver</p>
+      </div>
+
+
+      <div>
+        <ul class="grid grid-cols-3 gap-4 mt-4">
+          <li *ngFor="let seat of bus.seats; let i = index">
+            <p class="border-slate-400 border-2 p-4 rounded cursor-pointer text-center" [ngClass]="{
+                'bg-gray-400 text-white cursor-not-allowed': seat.isBooked,
+                'hover:bg-blue-200': !seat.isBooked
+              }" [title]="seat.isBooked ? 'This seat is already booked' : 'Click to book this seat'"
+              (click)="!seat.isBooked && openDialog(bus, seat)">
+              {{ seat.number }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template> -->
+
+
+
+
+<div *ngIf="!bus; else busDetails">
+  <p class="text-center text-red-500">Bus not found.</p>
+</div>
+
+
+
+<ng-template #busDetails>
+
+
+
+
+  <div class="flex flex-col justify-center items-center">
+
+    <div class="w-96 bg-slate-100 p-4 rounded">
+      <!-- Header Section -->
+      <div class="grid grid-cols-4">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p class="py-8 px-6 bg-blue-300 rounded-full text-center">Driver</p>
+      </div>
+
+      <!-- Seats Section -->
+      <div *ngIf="userData?.role === 'admin'; else userView">
+        <!-- Admin View -->
+        <p class="text-center text-green-500 font-bold">Admin Access: Manage Seats</p>
+        <ul class="grid grid-cols-3 gap-4 mt-4">
+          <li *ngFor="let seat of bus.seats; let i = index">
+            <p class="border-slate-400 border-2 p-4 rounded cursor-pointer text-center" [ngClass]="{
+                'bg-gray-400 text-white cursor-not-allowed': seat.isBooked,
+                'hover:bg-blue-200': !seat.isBooked
+              }" [title]="seat.isBooked ? 'This seat is already booked' : 'Click to book or unbook this seat'"
+              (click)="openDialog(bus, seat)">
+              {{ seat.number }}
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- User View -->
+      <ng-template #userView>
+        <p class="text-center text-blue-500 font-bold">User View: Book Seats</p>
+        <ul class="grid grid-cols-3 gap-4 mt-4">
+          <li *ngFor="let seat of bus.seats; let i = index">
+            <p class="border-slate-400 border-2 p-4 rounded cursor-pointer text-center" [ngClass]="{
+                'bg-gray-400 text-white cursor-not-allowed': seat.isBooked,
+                'hover:bg-blue-200': !seat.isBooked
+              }" [title]="seat.isBooked ? 'This seat is already booked' : 'Click to book this seat'"
+              (click)="!seat.isBooked && openDialog(bus, seat)">
+              {{ seat.number }}
+            </p>
+          </li>
+        </ul>
+      </ng-template>
+    </div>
+    <div class="w-96 bg-neutral-200 p-4  rounded">
+<p class="text-3xl text-blue-700">{{bus.name}} </p>
+<p class="text-lg text-gray-700"><span class="text-blue-500">Number:</span> {{bus.busNo}}</p>
+</div>
+  </div>
+</ng-template>

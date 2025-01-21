@@ -1,0 +1,72 @@
+
+<div class="container mx-auto ">
+  <div class="flex flex-col md:flex-row justify-center items-center">
+    <div class="w-full">
+    <img src="./../../../assets/images/login.jpg" alt="">
+  </div>
+  <div class="w-full p-4 md:p-8">
+    <div class="text-center">
+      <p class="text-xl">Login</p>
+      <p>Log in quickly — it’s free and takes just a moment.</p>
+    </div>
+    <div >
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-2">
+    <!-- Email Field -->
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        placeholder="Ex. pat@example.com"
+      />
+      <mat-hint>Please enter your email</mat-hint>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email') && !loginForm.get('email')?.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        [type]="hide ? 'password' : 'text'"
+        matInput
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-hint>Please enter your password</mat-hint>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" class="mt-4" type="submit" [disabled]="loginForm.invalid" >
+      Login
+    </button>
+  </form>
+</div>
+
+    <!-- <button mat-raised-button color="primary" class="w-full py-10">Login</button> -->
+
+    <div class="py-2">
+      <p class="text-sm">By clicking the Sign up button, you agree to our <span class="text-blue-400">Terms & Conditions</span> and
+        <span class="text-blue-400">Privacy Policy</span> </p>
+      <p class="text-center">New here?  <span routerLink="/register" class="text-blue-600 cursor-pointer">Create an account now!</span></p>
+    </div>
+  </div>
+  </div>
+</div>
