@@ -20,7 +20,9 @@ export interface TSeat {
   providedIn: 'root',
 })
 export class StorageService {
-  buses: TBus[] = [
+  private busesSubject = new BehaviorSubject<TBus[]>([]);
+  buses$ = this.busesSubject.asObservable();
+  defaultBuses: TBus[] = [
     {
       id: '1',
       name: 'Shamoli',
@@ -162,22 +164,38 @@ export class StorageService {
     this.initializeStorage();
   }
 
-  initializeStorage() {
+  private initializeStorage() {
     const busesInStorage = localStorage.getItem('buses');
     if (!busesInStorage) {
-      localStorage.setItem('buses', JSON.stringify(this.buses));
-    } else {
-      console.log('Buses already exist in localStorage');
+      // If no data in localStorage, initialize with default buses
+      localStorage.setItem('buses', JSON.stringify(this.defaultBuses));
+    }
+    this.updateBusesFromStorage();
+  }
+
+  private updateBusesFromStorage() {
+    const busesInStorage = localStorage.getItem('buses');
+    if (busesInStorage) {
+      this.busesSubject.next(JSON.parse(busesInStorage));
     }
   }
 
-  getBuses() {
-    const busesInStorage = localStorage.getItem('buses');
-    return busesInStorage ? JSON.parse(busesInStorage) : [];
+  getBuses(): TBus[] {
+    return this.busesSubject.getValue();
   }
 
-  updateBuses(updatedBuses: any[]) {
+  updateBuses(updatedBuses: TBus[]) {
     localStorage.setItem('buses', JSON.stringify(updatedBuses));
+    this.busesSubject.next(updatedBuses); // Notify all subscribers about the change
+  }
+
+  updateBus(busNo: string, updatedBus: TBus) {
+    const buses = this.getBuses();
+    const busIndex = buses.findIndex((bus) => bus.busNo === busNo);
+    if (busIndex > -1) {
+      buses[busIndex] = updatedBus;
+      this.updateBuses(buses);
+    }
   }
 
   getBusByName(id: string): TBus | undefined {
