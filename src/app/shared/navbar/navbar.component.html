@@ -13,6 +13,10 @@
           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon>home</mat-icon>Home
         </li>
+        <li mat-button routerLink="/products" class="top-menu-item flex justify-center items-center gap-2 cursor-pointer"
+          routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <mat-icon>list_alt</mat-icon>Products
+        </li>
 
       </ul>
 
@@ -41,6 +45,7 @@
             <mat-icon>home</mat-icon>Home
           </a>
         </div>
+
 
         <!-- <div>
           <a (click)="sidenav.close()" mat-button routerLink="/contacts" class="side-menu-item"

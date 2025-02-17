@@ -25,6 +25,10 @@ import { MyBusDetailsComponent } from './components/my-bus-details/my-bus-detail
 import { MyFormComponent } from './components/my-form/my-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdminModalComponent } from './components/admin-modal/admin-modal.component';
+import { ProductsComponent } from './products/products.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,9 @@ import { AdminModalComponent } from './components/admin-modal/admin-modal.compon
     MyBusDetailsComponent,
     MyFormComponent,
     AdminModalComponent,
+    ProductsComponent,
+    ProductListComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +61,7 @@ import { AdminModalComponent } from './components/admin-modal/admin-modal.compon
     MatMenuModule,
     MatTableModule,
     MatDialogModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
